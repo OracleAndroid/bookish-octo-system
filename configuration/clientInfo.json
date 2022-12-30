@@ -1,0 +1,12 @@
+{
+    "clientConfig":{
+    "clientid": "someid",
+    "secret": "quiet",
+    "client_URL": "urlgoeshere",
+    "client_token_URL": "tokenurlgoeshere" 
+    },
+
+    "toolConfig": {
+        "comingsoon": true
+    }
+}
