@@ -14,9 +14,8 @@ fn main(){
 }
 // Open and read JSON Config file
 
-fn read_config() -> Result<()> {
+fn read_config() {
     let config = File::open("./configuration/clientInfo.json")
         .expect("Cannot open Configuration file");
-    Ok(())
     }
 
