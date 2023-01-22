@@ -1,27 +1,20 @@
-pub(crate) use serde::{Serialize, Deserialize};
+use std::fs::File;
+use std::io::{prelude::*, Result};
 
- #[derive(Debug, Serialize, Deserialize)]
+pub mod call_api;
 
 
- struct Todo {
-	#[serde(rename = "userId")]
-    user_id: i32,
-	id: i32,
-	title: String,
-	completed: bool,
- }
-
-#[tokio::main]
-
-//This is a basic API Caller. Gets JSON from URL, stored as string
-async fn main() -> Result<(), reqwest::Error> {
-	let todos: Vec<Todo> = reqwest::Client::new()
-	.get ("https://jsonplaceholder.typicode.com/todos")
-	.send()
-	.await?
-	.json()
-	.await?;
-	println!("{:#?}", todos);
+fn read_config_file() -> std::io::Result<()> {
+	let mut config_file = File::open("/configuration/appSettings.json")?;
+	let mut cfg_file_cont = String::new();
+	config_file.read_to_string(&mut cfg_file_cont)?;
+    let json: serde_json::Value = serde_json::from_str(&cfg_file_cont).expect("JSON was not well-formatted");
+	println!("{:#?}", json);
 
 	Ok(())
+}
+
+fn main() {
+	read_config_file();
+	//call_api::call_api();
 }

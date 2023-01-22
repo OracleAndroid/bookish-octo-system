@@ -1,5 +1,5 @@
 [package]
-name = "ContentAPI_validator"
+name = "content_api_validator"
 version = "0.1.0"
 edition = "2021"
 
