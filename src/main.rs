@@ -1,21 +1,27 @@
-use std::fs::File;
-use serde::{Deserialize, Serialize};
-use serde_json;
+pub(crate) use serde::{Serialize, Deserialize};
 
-struct ApiAuth {
-    clientid: String,
-    clientsecret: String,
-    tokenurl: String,
-    clienturl: String,
+ #[derive(Debug, Serialize, Deserialize)]
+
+
+ struct Todo {
+	#[serde(rename = "userId")]
+    user_id: i32,
+	id: i32,
+	title: String,
+	completed: bool,
+ }
+
+#[tokio::main]
+
+//This is a basic API Caller. Gets JSON from URL, stored as string
+async fn main() -> Result<(), reqwest::Error> {
+	let todos: Vec<Todo> = reqwest::Client::new()
+	.get ("https://jsonplaceholder.typicode.com/todos")
+	.send()
+	.await?
+	.json()
+	.await?;
+	println!("{:#?}", todos);
+
+	Ok(())
 }
-
-fn main(){
-    read_config();
-}
-// Open and read JSON Config file
-
-fn read_config() {
-    let config = File::open("./configuration/clientInfo.json")
-        .expect("Cannot open Configuration file");
-    }
-
